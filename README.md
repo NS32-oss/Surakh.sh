@@ -8,6 +8,9 @@ The Authenticate Me service is a robust, secure, and flexible authentication bac
    - Upon login, an OTP is sent to the user's registered email.
    - OTP is verified to complete the login process, adding an extra layer of security.
   
+   <img src="images/otp_sent_1.png" alt="OTP Sent - Step 1" height="300" />
+   <img src="images/otp_sent_2.png" alt="OTP Sent - Step 2" height="300" />
+
 2. **Telegram OTP Verification**
    - Users can verify their identity through Telegram by receiving a unique OTP.
 
@@ -24,10 +27,10 @@ The Authenticate Me service is a robust, secure, and flexible authentication bac
    - **Clickjacking Prevention**: X-Frame-Options to protect against clickjacking.
    - **SQL Injection Protection**: ORM and prepared statements in database interactions.
 
-   <img src="images/google_auth.png" alt="Two-Factor Authentication" height="300" />
+   <img src="images/google_auth.png" alt="Google Authentication" height="300" />
 
-
-
+   <img src="images/check_otp.png" alt="Check OTP" height="300" />
+   <img src="images/login_success.png" alt="Login Success" height="300" />
 
 ## 📚 How to Use the API
 
