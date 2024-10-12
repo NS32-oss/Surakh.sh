@@ -25,7 +25,7 @@ The Authenticate Me service is a robust, secure, and flexible authentication bac
    - A unique private key is generated for each user to access the services, ensuring high security.
    - The private key is encrypted using bcrypt to maintain data integrity and confidentiality.
 
-   <img src="images/Secret_key.png" alt="Google Authentication" height="300" />
+   <img src="images/Secret_key.jpg" alt="Google Authentication" height="300" />
 
 5. **Security Measures**
    - **XSS and CSRF Attack Prevention**: Input sanitization and secure cookie handling.
