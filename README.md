@@ -1,6 +1,9 @@
 # 🤝 Authenticate Me: A Universal Authentication Service
 
-The Authenticate Me service is a robust, secure, and flexible authentication backend that can be integrated with any mobile, web, or desktop application. It supports multiple authentication methods, including 2-factor authentication via email, Telegram, GitHub, Google, and more. The service is built with security best practices, ensuring protection against common vulnerabilities and offering innovative features for enhanced security.
+The Authenticate Me service is a robust, secure, and flexible authentication backend that can be integrated with any mobile, web, or desktop application. It supports multiple authentication methods, including 2-factor authentication via email, Telegram, GitHub, Google, and more. The service is built with security best practices, ensuring protection against common vulnerabilities and offering innovative 
+features for enhanced security.
+
+<img src="images/image.png" alt="OTP Sent - Step 1" height="300" />
 
 ## 🌟 Features Implemented
 
