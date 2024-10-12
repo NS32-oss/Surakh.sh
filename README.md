@@ -10,6 +10,8 @@ The Authenticate Me service is a robust, secure, and flexible authentication bac
   
    <img src="images/otp_sent_1.png" alt="OTP Sent - Step 1" height="300" />
    <img src="images/otp_sent_2.png" alt="OTP Sent - Step 2" height="300" />
+   <img src="images/check_otp.png" alt="Check OTP" height="300" />
+   <img src="images/login_success.png" alt="Login Success" height="300" />
 
 2. **Telegram OTP Verification**
    - Users can verify their identity through Telegram by receiving a unique OTP.
@@ -17,20 +19,19 @@ The Authenticate Me service is a robust, secure, and flexible authentication bac
 3. **Federated Login**
    - Integrated GitHub and Google authentication for seamless user sign-in.
 
+   <img src="images/google_auth.png" alt="Google Authentication" height="300" />
+
 4. **Private Key Generation for Users**
    - A unique private key is generated for each user to access the services, ensuring high security.
    - The private key is encrypted using bcrypt to maintain data integrity and confidentiality.
+
+   <img src="images/Secret_key.png" alt="Google Authentication" height="300" />
 
 5. **Security Measures**
    - **XSS and CSRF Attack Prevention**: Input sanitization and secure cookie handling.
    - **Brute Force Protection**: Rate limiting for wrong password attempts per user IP.
    - **Clickjacking Prevention**: X-Frame-Options to protect against clickjacking.
-   - **SQL Injection Protection**: ORM and prepared statements in database interactions.
-
-   <img src="images/google_auth.png" alt="Google Authentication" height="300" />
-
-   <img src="images/check_otp.png" alt="Check OTP" height="300" />
-   <img src="images/login_success.png" alt="Login Success" height="300" />
+   - **SQL Injection Protection**: ORM and prepared statements in database interactions.  
 
 ## 📚 How to Use the API
 
