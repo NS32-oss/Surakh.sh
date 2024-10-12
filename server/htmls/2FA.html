@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login & Sign Up</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Optional: Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
+            <h2 class="text-2xl font-semibold mb-4 text-center" id="form-title">Sign Up</h2>
+            <form id="auth-form">
+                <!-- Initial Form Fields Wrapper -->
+                <div id="initial-fields">
+                    <!-- Full Name Field (Sign Up Only) -->
+                    <div id="fullname-field" class="mb-4">
+                        <label for="fullname" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input
+                            type="text"
+                            id="fullname"
+                            name="fullname"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter your full name"
+                        />
+                        <p class="text-red-500 text-sm mt-1 hidden" id="fullname-error">Full Name is required.</p>
+                    </div>
+
+                    <!-- Username or Email Field -->
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-700" id="username-label">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="usernameOrEmail"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter your username"
+                        />
+                        <p class="text-red-500 text-sm mt-1 hidden" id="username-error">Username is required.</p>
+                    </div>
+
+                    <!-- Email Field (Sign Up Only) -->
+                    <div id="email-field" class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter your email"
+                        />
+                        <p class="text-red-500 text-sm mt-1 hidden" id="email-error">Valid Email is required.</p>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter your password"
+                        />
+                        <p class="text-red-500 text-sm mt-1 hidden" id="password-error">Password is required.</p>
+                    </div>
+
+                    <!-- Confirm Password Field (Sign Up Only) -->
+                    <div id="confirm-password-field" class="mb-4">
+                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Confirm your password"
+                        />
+                        <p class="text-red-500 text-sm mt-1 hidden" id="confirmPassword-error">Passwords do not match.</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+                        id="submit-button"
+                    >
+                        Sign Up
+                    </button>
+
+                    <!-- Toggle Between Login and Sign Up -->
+                    <div class="text-center mt-4">
+                        <p id="toggle-text">
+                            Already have an account? 
+                            <button
+                                type="button"
+                                class="text-blue-600 hover:underline"
+                                id="toggle-button"
+                            >
+                                Login
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- OTP Verification Fields (Initially Hidden) -->
+                <div id="otp-section" class="hidden">
+                    <!-- OTP Field -->
+                    <div id="otp-field" class="mb-4">
+                        <label for="otp" class="block text-sm font-medium text-gray-700">OTP</label>
+                        <input
+                            type="text"
+                            id="otp"
+                            name="otp"
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Enter the OTP sent to your email"
+                        />
+                        <p class="text-red-500 text-sm mt-1 hidden" id="otp-error">OTP is required.</p>
+                    </div>
+
+                    <!-- Verify OTP Button -->
+                    <button
+                        type="button"
+                        id="verify-otp-button"
+                        class="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600"
+                    >
+                        Verify OTP
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for Form Toggling and Validation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let isLogin = false; // Track form state
+
+            const formTitle = document.getElementById('form-title');
+            const toggleText = document.getElementById('toggle-text');
+            let toggleButton = document.getElementById('toggle-button');
+            const authForm = document.getElementById('auth-form');
+            const initialFields = document.getElementById('initial-fields');
+            const otpSection = document.getElementById('otp-section');
+
+            // Fields
+            const fullnameField = document.getElementById('fullname-field');
+            const emailField = document.getElementById('email-field');
+            const confirmPasswordField = document.getElementById('confirm-password-field');
+
+            // Labels
+            const usernameLabel = document.getElementById('username-label');
+
+            // Error Messages
+            const fullnameError = document.getElementById('fullname-error');
+            const usernameError = document.getElementById('username-error');
+            const emailError = document.getElementById('email-error');
+            const passwordError = document.getElementById('password-error');
+            const confirmPasswordError = document.getElementById('confirmPassword-error');
+            const otpError = document.getElementById('otp-error');
+
+            // Toggle Form Between Login and Sign Up
+            toggleButton.addEventListener('click', () => {
+                isLogin = !isLogin;
+                if (isLogin) {
+                    formTitle.textContent = 'Login';
+                    toggleButton.textContent = 'Sign Up';
+                    toggleText.innerHTML = "Don't have an account? <button type='button' class='text-blue-600 hover:underline' id='toggle-button'>Sign Up</button>";
+                    fullnameField.classList.add('hidden');
+                    emailField.classList.add('hidden');
+                    confirmPasswordField.classList.add('hidden');
+                    usernameLabel.textContent = 'Username or Email';
+                    authForm.querySelector('#submit-button').textContent = 'Login';
+                } else {
+                    formTitle.textContent = 'Sign Up';
+                    toggleButton.textContent = 'Login';
+                    toggleText.innerHTML = "Already have an account? <button type='button' class='text-blue-600 hover:underline' id='toggle-button'>Login</button>";
+                    fullnameField.classList.remove('hidden');
+                    emailField.classList.remove('hidden');
+                    confirmPasswordField.classList.remove('hidden');
+                    usernameLabel.textContent = 'Username';
+                    authForm.querySelector('#submit-button').textContent = 'Sign Up';
+                }
+
+                // Re-attach the toggle button event listener to the new button
+                toggleButton = document.getElementById('toggle-button');
+                toggleButton.addEventListener('click', () => {
+                    // Trigger the click event on the original toggle button
+                    toggleButton.click();
+                });
+            });
+
+            // Handle Form Submission
+            authForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // Reset error messages
+                fullnameError.classList.add('hidden');
+                usernameError.classList.add('hidden');
+                emailError.classList.add('hidden');
+                passwordError.classList.add('hidden');
+                confirmPasswordError.classList.add('hidden');
+
+                // Get form values
+                const fullname = document.getElementById('fullname')?.value.trim();
+                const username = document.getElementById('username')?.value.trim();
+                let email = document.getElementById('email')?.value.trim().toLowerCase();
+                const password = document.getElementById('password')?.value;
+                const confirmPassword = document.getElementById('confirmPassword')?.value;
+
+                let hasError = false;
+
+                // Validate Full Name (Sign Up Only)
+                if (!isLogin && (!fullname || fullname === '')) {
+                    fullnameError.textContent = "Full Name is required.";
+                    fullnameError.classList.remove('hidden');
+                    hasError = true;
+                }
+
+                // Validate Username or Email
+                if (!username || username === '') {
+                    usernameError.textContent = isLogin ? "Username or Email is required." : "Username is required.";
+                    usernameError.classList.remove('hidden');
+                    hasError = true;
+                }
+
+                // Validate Email (Sign Up Only)
+                if (!isLogin) {
+                    if (!email || email === '') {
+                        emailError.textContent = "Email is required.";
+                        emailError.classList.remove('hidden');
+                        hasError = true;
+                    } else if (!validateEmail(email)) {
+                        emailError.textContent = "Invalid email format.";
+                        emailError.classList.remove('hidden');
+                        hasError = true;
+                    }
+                }
+
+                // Validate Password
+                if (!password || password === '') {
+                    passwordError.textContent = "Password is required.";
+                    passwordError.classList.remove('hidden');
+                    hasError = true;
+                }
+
+                // Validate Confirm Password (Sign Up Only)
+                if (!isLogin) {
+                    if (!confirmPassword || confirmPassword === '') {
+                        confirmPasswordError.textContent = "Confirm Password is required.";
+                        confirmPasswordError.classList.remove('hidden');
+                        hasError = true;
+                    } else if (password !== confirmPassword) {
+                        confirmPasswordError.textContent = "Passwords do not match.";
+                        confirmPasswordError.classList.remove('hidden');
+                        hasError = true;
+                    }
+                }
+
+                if (!hasError) {
+                    // Prepare data to send to the server
+                    const formData = isLogin
+                        ? {
+                                usernameOrEmail: username,
+                                password: password
+                            }
+                        : {
+                                fullName: fullname,
+                                username: username,
+                                email: email,
+                                password: password
+                            };
+
+                    // Determine the endpoint based on form state
+                    const endpoint = isLogin ? `http://localhost:5000/api/v1/users/login` : `http://localhost:5000/api/v1/users/signup`;
+
+                    // Send data to the server via Fetch API
+                  
+                    fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(async (response) => {
+                        const data = await response.json();
+                        if (response.ok) {
+                            let userEmail = email;
+                            // If email is not provided (in login), attempt to retrieve it from the response
+                            if (!userEmail) {
+                                userEmail = data.email || username; // Adjust based on your API's response
+                            }
+
+                            // Send OTP
+                            fetch(`http://localhost:5000/api/v1/otp/sendOtp`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ email: userEmail })
+                            })
+                            .then(async (otpResponse) => {
+                                if (otpResponse.ok) {
+                                    alert(`OTP has been sent to ${userEmail}`);
+                                    // Hide initial form fields and show OTP section
+                                    initialFields.classList.add('hidden');
+                                    otpSection.classList.remove('hidden');
+                                } else {
+                                    alert('Failed to send OTP');
+                                }
+                            });
+
+                            authForm.reset();
+                        } else {
+                            if (data.error) {
+                                alert(data.error);
+                            } else {
+                                alert(`Error occurred: ${data.message}`);
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                        alert(`Error occurred: ${error}`);
+                    });
+                }
+            });
+
+            // Helper function to validate email format
+            function validateEmail(email) {
+                const regex = /^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b$/;
+                return regex.test(email);
+            }
+
+            // Handle OTP Verification
+            document.getElementById('verify-otp-button').addEventListener('click', () => {
+                const otp = document.getElementById('otp')?.value.trim();
+                // let userEmail = '';
+                console.log(otp);
+                // Determine the email to use for OTP verification
+                if (!isLogin) {
+                    userEmail = document.getElementById('email').value.trim().toLowerCase();
+                } else {
+                  
+                  
+                    if (!userEmail) {
+                        // alert('Email is required for OTP verification.');
+                        var userEmail = document.getElementById('username').value.trim().toLowerCase();
+                        return;
+                    }
+                }
+
+                // Reset OTP error
+                otpError.classList.add('hidden');
+
+                // Validate OTP
+                if (!otp) {
+                    otpError.textContent = 'OTP is required.';
+                    otpError.classList.remove('hidden');
+                    return;
+                }
+
+                // Send OTP verification request
+
+                fetch('http:// process.env.BACKEND_URL/api/v1/otp/checkOtp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, otp: otp })
+                })
+                .then(async (response) => {
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert('OTP verified successfully!');
+                        window.location.href = `http://localhost:5000/login-success?code=200`;
+                    } else {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            alert('Invalid OTP');
+                        }
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert(`Error occurred: ${error}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
