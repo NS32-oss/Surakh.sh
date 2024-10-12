@@ -23,8 +23,10 @@ The Authenticate Me service is a robust, secure, and flexible authentication bac
    - **Brute Force Protection**: Rate limiting for wrong password attempts per user IP.
    - **Clickjacking Prevention**: X-Frame-Options to protect against clickjacking.
    - **SQL Injection Protection**: ORM and prepared statements in database interactions.
-     
-![Two-Factor Authentication](images/Screenshot%2024-10-05%20144852.png)
+
+   <img src="images/google_auth.png" alt="Two-Factor Authentication" height="300" />
+
+
 
 
 ## 📚 How to Use the API
