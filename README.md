@@ -24,7 +24,7 @@ The Authenticate Me service is a robust, secure, and flexible authentication bac
    - **Clickjacking Prevention**: X-Frame-Options to protect against clickjacking.
    - **SQL Injection Protection**: ORM and prepared statements in database interactions.
      
-![Google authentication](images/images/google_auth.png)
+![Google authentication](images/google_auth.png)
 
 
 ## 📚 How to Use the API
